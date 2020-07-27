@@ -15,8 +15,6 @@ class Account
       puts '- If you want to load account - press `load`'
       puts '- If you want to exit - press `exit`'
 
-    # FIRST SCENARIO. IMPROVEMENT NEEDED
-
     a = gets.chomp
 
     if a == 'create'
@@ -44,7 +42,7 @@ class Account
     @card = []
     new_accounts = accounts << self
     @current_account = self
-    File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml } #Storing
+    File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml }
     main_menu
   end
 
@@ -151,7 +149,7 @@ class Account
           }
         end
         cards = @current_account.card << card
-        @current_account.card = cards #important!!!
+        @current_account.card = cards
         new_accounts = []
         accounts.each do |ac|
           if ac.login == @current_account.login
@@ -160,7 +158,7 @@ class Account
             new_accounts.push(ac)
           end
         end
-        File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml } #Storing
+        File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml }
         break
       else
         puts "Wrong card type. Try again!\n"
@@ -192,7 +190,7 @@ class Account
                 new_accounts.push(ac)
               end
             end
-            File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml } #Storing
+            File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml }
             break
           else
             return
@@ -219,7 +217,7 @@ class Account
 
   def withdraw_money
     puts 'Choose the card for withdrawing:'
-    answer, a2, a3 = nil #answers for gets.chomp
+    answer, a2, a3 = nil
     if @current_account.card.any?
       @current_account.card.each_with_index do |c, i|
         puts "- #{c[:number]}, #{c[:type]}, press #{i + 1}"
@@ -246,7 +244,7 @@ class Account
                     new_accounts.push(ac)
                   end
                 end
-                File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml } #Storing
+                File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml }
                 puts "Money #{a2&.to_i.to_i} withdrawed from #{current_card[:number]}$. Money left: #{current_card[:balance]}$. Tax: #{withdraw_tax(current_card[:type], current_card[:balance], current_card[:number], a2&.to_i.to_i)}$"
                 return
               else
@@ -300,7 +298,7 @@ class Account
                     new_accounts.push(ac)
                   end
                 end
-                File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml } #Storing
+                File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml }
                 puts "Money #{a2&.to_i.to_i} was put on #{current_card[:number]}. Balance: #{current_card[:balance]}. Tax: #{put_tax(current_card[:type], current_card[:balance], current_card[:number], a2&.to_i.to_i)}"
                 return
               end
@@ -386,7 +384,7 @@ class Account
               new_accounts.push(recipient)
             end
           end
-          File.open('accounts.yml', 'w') { |f| f.write new_accounts.to_yaml } #Storing
+          File.open('accounts.yml', 'w') { |f| f.write new_accounts.to_yaml }
           puts "Money #{a3&.to_i.to_i}$ was put on #{sender_card[:number]}. Balance: #{recipient_balance}. Tax: #{put_tax(sender_card[:type], sender_card[:balance], sender_card[:number], a3&.to_i.to_i)}$\n"
           puts "Money #{a3&.to_i.to_i}$ was put on #{a2}. Balance: #{sender_balance}. Tax: #{sender_tax(sender_card[:type], sender_card[:balance], sender_card[:number], a3&.to_i.to_i)}$\n"
           break
@@ -408,7 +406,7 @@ class Account
           new_accounts.push(ac)
         end
       end
-      File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml } #Storing
+      File.open(@file_path, 'w') { |f| f.write new_accounts.to_yaml }
     end
   end
 
