@@ -460,12 +460,43 @@ RSpec.describe Console do
       let(:card_two) { VirtualCard.new(current_account) }
       let(:fake_cards) { [card_one, card_two] }
 
+      context 'with correct outout' do
+        it do
+          current_subject.instance_variable_set(:@current_account, current_account)
+          allow(current_subject.current_account).to receive(:cards) { fake_cards }
+          allow(current_subject).to receive_message_chain(:gets, :chomp) { 'exit' }
+          expect { current_subject.destroy_card }.to output(/#{I18n.t('destroy_card.prompt_delete')}/).to_stdout
+          fake_cards.each_with_index do |card, i|
+            message = I18n.t(:cards_list, number: card.number, type: card.type, index: i)
+            expect { current_subject.destroy_card }.to output(message).to_stdout
+          end
+          current_subject.destroy_card
+        end
+      end
+
       context 'when exit if first gets is exit' do
         it do
           current_subject.instance_variable_set(:@current_account, current_account)
           allow(current_subject.current_account).to receive(:cards) { fake_cards }
           allow(current_subject).to receive_message_chain(:gets, :chomp) { 'exit' }
           expect { current_subject.destroy_card }.to raise_error(SystemExit)
+        end
+      end
+
+      context 'with incorrect input of card number' do
+        before do
+          current_subject.instance_variable_set(:@current_account, current_account)
+          allow(current_subject.current_account).to receive(:cards) { fake_cards }
+        end
+
+        it do
+          allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(fake_cards.length + 1, 'exit')
+          expect { current_subject.destroy_card }.to output(/#{I18n.t('destroy_card.wrong_number')}/).to_stdout
+        end
+
+        it do
+          allow(current_subject).to receive_message_chain(:gets, :chomp).and_return(-1, 'exit')
+          expect { current_subject.destroy_card }.to output(/#{I18n.t('destroy_card.wrong_number')}/).to_stdout
         end
       end
 
