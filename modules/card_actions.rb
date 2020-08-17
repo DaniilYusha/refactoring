@@ -116,7 +116,7 @@ module CardActions
     outputer.enter_recipient_card
     recipient_number = gets.chomp
     back_to_menu { outputer.incorrect_card } unless recipient_number.length == BaseCard::CARD_LENGTH
-    back_to_menu { outputer.no_recipient_card recipient_number } unless AccountManager.card_exists?(recipient_number)
+    back_to_menu { outputer.no_recipient_card recipient_number } if AccountManager.find_card(recipient_number).nil?
     AccountManager.find_card recipient_number
   end
 end

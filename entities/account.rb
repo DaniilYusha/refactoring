@@ -1,8 +1,5 @@
 class Account
-  include Validator
-
-  attr_accessor :errors
-  attr_reader :name, :age, :login, :password, :cards
+  attr_reader :name, :age, :login, :password, :cards, :errors
 
   LOGIN_LENGTH = (4..20).freeze
   PASSWORD_LENGTH = (6..30).freeze
@@ -31,6 +28,11 @@ class Account
   def destroy_card(card_index)
     cards.delete_at(card_index.to_i - 1)
     AccountManager.update self
+  end
+
+  def valid?
+    validate!
+    errors.empty?
   end
 
   private

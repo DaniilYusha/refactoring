@@ -5,12 +5,11 @@ require 'i18n'
 require_relative 'config/i18n'
 
 require_relative 'modules/account_actions'
-require_relative 'modules/account_manager'
 require_relative 'modules/account_registrator'
 require_relative 'modules/card_actions'
 require_relative 'modules/main_menu'
-require_relative 'modules/validator'
 
+require_relative 'entities/account_manager'
 require_relative 'entities/account'
 require_relative 'entities/base_card'
 require_relative 'entities/capitalist_card'

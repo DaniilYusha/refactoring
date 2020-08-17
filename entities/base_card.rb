@@ -8,6 +8,18 @@ class BaseCard
     @number = generate_card_number
   end
 
+  def withdraw_tax(amount)
+    tax(amount, withdraw_percent, withdraw_fixed)
+  end
+
+  def put_tax(amount)
+    tax(amount, put_percent, put_fixed)
+  end
+
+  def sender_tax(amount)
+    tax(amount, sender_percent, sender_fixed)
+  end
+
   def put_money(amount)
     @balance += amount - put_tax(amount)
     AccountManager.update account

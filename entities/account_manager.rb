@@ -29,10 +29,6 @@ class AccountManager
       all_cards.find { |card| card.number == number }
     end
 
-    def card_exists?(number)
-      all_cards.select { |card| card.number == number }.any?
-    end
-
     private
 
     def accounts
