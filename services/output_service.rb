@@ -11,22 +11,6 @@ class OutputService
     puts I18n.t :first_account
   end
 
-  def enter_name
-    puts I18n.t :enter_name
-  end
-
-  def enter_age
-    puts I18n.t :enter_age
-  end
-
-  def enter_login
-    puts I18n.t :enter_login
-  end
-
-  def enter_password
-    puts I18n.t :enter_password
-  end
-
   def wrong_command
     puts I18n.t 'main_menu_commands.wrong_command'
   end

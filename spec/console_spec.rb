@@ -95,7 +95,7 @@ RSpec.describe Console do
 
       it 'with correct outout' do
         allow(File).to receive(:open)
-        ASK_PHRASES.values.each { |phrase| expect(current_subject.outputer).to receive(:puts).with(phrase) }
+        ASK_PHRASES.values.each { |phrase| expect(current_subject).to receive(:puts).with(phrase) }
         I18n.t('errors').values.map(&:values).each do |phrase|
           expect(current_subject).not_to receive(:puts).with(phrase)
         end
@@ -232,7 +232,7 @@ RSpec.describe Console do
 
         it do
           [ASK_PHRASES[:login], ASK_PHRASES[:password]].each do |phrase|
-            expect(current_subject.outputer).to receive(:puts).with(phrase)
+            expect(current_subject).to receive(:puts).with(phrase)
           end
           current_subject.load
         end

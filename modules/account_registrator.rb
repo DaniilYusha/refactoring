@@ -13,7 +13,10 @@ module AccountRegistrator
 
   def create
     loop do
-      account = Account.new name: name_input, age: age_input, login: login_input, password: password_input
+      account = Account.new(name: input(I18n.t(:enter_name)),
+                            age: input(I18n.t(:enter_age)).to_i,
+                            login: input(I18n.t(:enter_login)),
+                            password: input(I18n.t(:enter_password)))
       next show_errors account.errors unless account.valid?
 
       AccountManager.add(account)
@@ -25,8 +28,8 @@ module AccountRegistrator
     loop do
       return create_the_first_account unless AccountManager.accounts?
 
-      login = login_input
-      password = password_input
+      login = input(I18n.t(:enter_login))
+      password = input(I18n.t(:enter_password))
       return AccountManager.find_by_login(login) if AccountManager.exists? login, password
 
       next outputer.no_account
@@ -40,23 +43,8 @@ module AccountRegistrator
 
   private
 
-  def name_input
-    outputer.enter_name
-    gets.chomp
-  end
-
-  def age_input
-    outputer.enter_age
-    gets.chomp.to_i
-  end
-
-  def login_input
-    outputer.enter_login
-    gets.chomp
-  end
-
-  def password_input
-    outputer.enter_password
+  def input(message)
+    puts message
     gets.chomp
   end
 
