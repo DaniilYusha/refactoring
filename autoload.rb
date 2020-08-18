@@ -4,9 +4,9 @@ require 'i18n'
 
 require_relative 'config/i18n'
 
-require_relative 'modules/account_actions'
 require_relative 'modules/account_registrator'
-require_relative 'modules/card_actions'
+require_relative 'modules/management_actions'
+require_relative 'modules/transaction_actions'
 require_relative 'modules/main_menu'
 
 require_relative 'entities/account_manager'

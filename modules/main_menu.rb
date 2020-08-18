@@ -1,6 +1,6 @@
 module MainMenu
-  include AccountActions
-  include CardActions
+  include ManagementActions
+  include TransactionActions
 
   EXIT_COMMAND = I18n.t('commands.exit')
   YES_ANSWER = I18n.t('answers.agree')
